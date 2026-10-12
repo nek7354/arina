@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Приглашение для Арины 🍽️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #ffd9e8 0%, #ffe8d6 50%, #fff4d6 100%);
+    padding: 20px;
+  }
+
+  .card {
+    max-width: 560px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 28px;
+    padding: 48px 40px;
+    box-shadow: 0 20px 60px rgba(180, 100, 120, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+    text-align: center;
+    animation: floatIn 0.9s ease-out;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before { content: "🍷"; position: absolute; top: 20px; left: 24px; font-size: 28px; opacity: .5; }
+  .card::after  { content: "🍝"; position: absolute; bottom: 20px; right: 24px; font-size: 28px; opacity: .5; }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(30px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  h1 { font-size: 30px; color: #b03a5b; margin-bottom: 8px; letter-spacing: .5px; }
+  .heart { display: inline-block; animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+  .subtitle { color: #a07878; font-style: italic; margin-bottom: 32px; font-size: 16px; }
+
+  .options { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+
+  .option {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #fff0f4 0%, #fff8ec 100%);
+    border: 1px solid #ffd6e0;
+    text-align: left;
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(200,120,140,.25); }
+  .option:active { transform: translateY(-1px) scale(.99); }
+  .option:disabled { opacity: .6; cursor: default; }
+
+  .option .emoji { font-size: 34px; flex-shrink: 0; }
+  .option .text strong { display: block; color: #b03a5b; font-size: 17px; margin-bottom: 2px; }
+  .option .text span { color: #8a6a6a; font-size: 14px; }
+
+  .no-btn {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid #ffd6e0;
+    border-radius: 999px;
+    color: #b03a5b;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .no-btn:hover { background: #fff0f4; }
+  .no-btn:disabled { opacity: .5; cursor: default; }
+
+  .footer { font-size: 15px; color: #8a6a6a; margin-top: 20px; }
+  .footer .treat {
+    display: inline-block; margin-top: 12px; padding: 10px 22px;
+    border-radius: 999px; background: #b03a5b; color: #fff;
+    font-weight: bold; letter-spacing: .5px;
+    box-shadow: 0 8px 20px rgba(176,58,91,.35);
+  }
+
+  .signature { margin-top: 24px; font-style: italic; color: #a07878; font-size: 15px; }
+
+  .toast {
+    position: fixed;
+    left: 50%; bottom: 30px;
+    transform: translateX(-50%) translateY(20px);
+    background: #b03a5b; color: #fff;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-family: 'Georgia', serif;
+    font-size: 15px;
+    box-shadow: 0 10px 30px rgba(176,58,91,.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s, transform .3s;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Арина, <span class="heart">❤️</span></h1>
+    <p class="subtitle">приглашаю тебя вкусно покушать вместе</p>
+
+    <div class="options">
+      <button class="option" onclick="sendChoice('Вечер пятницы 🌆')">
+        <div class="emoji">🌆</div>
+        <div class="text">
+          <strong>Вечер пятницы</strong>
+          <span>после насыщенной недели — самое время побаловать себя</span>
+        </div>
+      </button>
+
+      <button class="option" onclick="sendChoice('День субботы ☀️')">
+        <div class="emoji">☀️</div>
+        <div class="text">
+          <strong>Днём субботы</strong>
+          <span>неспешно, вкусно и без суеты</span>
+        </div>
+      </button>
+    </div>
+
+    <button class="no-btn" onclick="sendChoice('Не сможет 😔')">😔 Не смогу</button>
+
+    <p class="footer">
+      Выбирай день — всё остальное за мной
+      <br>
+      <span class="treat">🍴 Я угощаю</span>
+    </p>
+
+    <p class="signature">Жду твоего ответа ✨</p>
+  </div>
+
+  <div class="toast" id="toast">Отправлено! Спасибо 💛</div>
+
+<script>
+  const BOT_TOKEN = '8824802274:AAFZkjpQ0m1ilqMCuVKdnFwI0LSoXp5-xT8';
+  const CHAT_ID   = '750771887';
+
+  function sendChoice(choice) {
+    document.querySelectorAll('.option, .no-btn').forEach(b => b.disabled = true);
+
+    const time = new Date().toLocaleString('ru-RU', {
+      day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+    });
+    const text = `Арина выбрала: ${choice}\n🕐 ${time}`;
+
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`
+              + `?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
+
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok) {
+          showToast('Отправлено! Спасибо 💛');
+        } else {
+          showToast('Ошибка: ' + (data.description || 'не отправлено'));
+          document.querySelectorAll('.option, .no-btn').forEach(b => b.disabled = false);
+        }
+      })
+      .catch(() => {
+        showToast('Не удалось отправить 😔 Проверь интернет');
+        document.querySelectorAll('.option, .no-btn').forEach(b => b.disabled = false);
+      });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+</script>
+
+</body>
+</html>
