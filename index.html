@@ -18,11 +18,11 @@
   }
 
   .card {
-    max-width: 560px;
+    max-width: 580px;
     width: 100%;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.94);
     border-radius: 28px;
-    padding: 48px 40px;
+    padding: 40px 36px 44px;
     box-shadow: 0 20px 60px rgba(180, 100, 120, 0.25),
                 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
     text-align: center;
@@ -31,68 +31,115 @@
     overflow: hidden;
   }
 
-  .card::before { content: "🍷"; position: absolute; top: 20px; left: 24px; font-size: 28px; opacity: .5; }
-  .card::after  { content: "🍝"; position: absolute; bottom: 20px; right: 24px; font-size: 28px; opacity: .5; }
+  .card::before { content: "🍷"; position: absolute; top: 18px; left: 22px; font-size: 26px; opacity: .5; }
+  .card::after  { content: "🍝"; position: absolute; bottom: 18px; right: 22px; font-size: 26px; opacity: .5; }
 
   @keyframes floatIn {
     from { opacity: 0; transform: translateY(30px) scale(.96); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  h1 { font-size: 30px; color: #b03a5b; margin-bottom: 8px; letter-spacing: .5px; }
+  h1 { font-size: 28px; color: #b03a5b; margin-bottom: 6px; letter-spacing: .5px; }
   .heart { display: inline-block; animation: pulse 1.6s infinite; }
   @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
-  .subtitle { color: #a07878; font-style: italic; margin-bottom: 32px; font-size: 16px; }
+  .subtitle { color: #a07878; font-style: italic; margin-bottom: 26px; font-size: 15px; }
 
-  .options { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
+  .step {
+    display: none;
+    animation: fadeSlide .4s ease-out;
+  }
+  .step.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-title {
+    font-size: 16px;
+    color: #b03a5b;
+    margin-bottom: 16px;
+    font-weight: bold;
+    letter-spacing: .3px;
+  }
+
+  .step-title .num {
+    display: inline-block;
+    width: 22px; height: 22px;
+    line-height: 22px;
+    border-radius: 50%;
+    background: #b03a5b;
+    color: #fff;
+    font-size: 12px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-family: Arial, sans-serif;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   .option {
-    display: flex; align-items: center; gap: 16px;
-    padding: 18px 22px;
-    border-radius: 18px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px;
+    border-radius: 16px;
     background: linear-gradient(135deg, #fff0f4 0%, #fff8ec 100%);
     border: 1px solid #ffd6e0;
     text-align: left;
-    transition: transform .25s ease, box-shadow .25s ease;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s;
     cursor: pointer;
     font-family: inherit;
     width: 100%;
+    color: inherit;
   }
 
-  .option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(200,120,140,.25); }
-  .option:active { transform: translateY(-1px) scale(.99); }
-  .option:disabled { opacity: .6; cursor: default; }
+  .option:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(200,120,140,.22); }
+  .option:active { transform: translateY(0) scale(.99); }
+  .option.selected {
+    background: linear-gradient(135deg, #ffe0ec 0%, #ffeccf 100%);
+    border-color: #b03a5b;
+    box-shadow: 0 0 0 2px rgba(176,58,91,.15);
+  }
 
-  .option .emoji { font-size: 34px; flex-shrink: 0; }
-  .option .text strong { display: block; color: #b03a5b; font-size: 17px; margin-bottom: 2px; }
-  .option .text span { color: #8a6a6a; font-size: 14px; }
+  .option .emoji { font-size: 28px; flex-shrink: 0; }
+  .option .text strong { display: block; color: #b03a5b; font-size: 16px; margin-bottom: 2px; }
+  .option .text span { color: #8a6a6a; font-size: 13px; }
 
-  .no-btn {
-    display: inline-block;
-    margin-top: 4px;
-    padding: 10px 20px;
-    background: transparent;
-    border: 1px solid #ffd6e0;
-    border-radius: 999px;
+  .option.compact {
+    justify-content: center;
+    text-align: center;
+    padding: 14px 12px;
+    font-size: 15px;
     color: #b03a5b;
+    font-weight: bold;
+  }
+  .option.compact .emoji { font-size: 22px; }
+  .option.compact .text strong { font-size: 15px; margin-bottom: 0; }
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 18px;
+    background: transparent;
+    border: none;
+    color: #a07878;
     font-family: inherit;
     font-size: 14px;
     cursor: pointer;
-    transition: background .2s;
+    font-style: italic;
   }
-  .no-btn:hover { background: #fff0f4; }
-  .no-btn:disabled { opacity: .5; cursor: default; }
+  .back-btn:hover { color: #b03a5b; }
 
-  .footer { font-size: 15px; color: #8a6a6a; margin-top: 20px; }
+  .footer { font-size: 14px; color: #8a6a6a; margin-top: 24px; }
   .footer .treat {
-    display: inline-block; margin-top: 12px; padding: 10px 22px;
+    display: inline-block; margin-top: 10px; padding: 9px 20px;
     border-radius: 999px; background: #b03a5b; color: #fff;
     font-weight: bold; letter-spacing: .5px;
     box-shadow: 0 8px 20px rgba(176,58,91,.35);
+    font-size: 14px;
   }
 
-  .signature { margin-top: 24px; font-style: italic; color: #a07878; font-size: 15px; }
+  .signature { margin-top: 18px; font-style: italic; color: #a07878; font-size: 14px; }
 
   .toast {
     position: fixed;
@@ -107,8 +154,49 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity .3s, transform .3s;
+    max-width: 90%;
+    text-align: center;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .summary {
+    background: #fff7fa;
+    border: 1px dashed #ffb8ce;
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: #8a5a6a;
+    text-align: left;
+    line-height: 1.6;
+  }
+  .summary b { color: #b03a5b; }
+
+  .send-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #b03a5b 0%, #d15473 100%);
+    color: #fff;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(176,58,91,.35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .send-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(176,58,91,.45); }
+  .send-btn:disabled { opacity: .6; cursor: default; transform: none; }
+
+  @media (max-width: 480px) {
+    .card { padding: 32px 22px 34px; }
+    h1 { font-size: 24px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .option.compact { padding: 12px 8px; font-size: 14px; }
+  }
 </style>
 </head>
 <body>
@@ -117,28 +205,59 @@
     <h1>Арина, <span class="heart">❤️</span></h1>
     <p class="subtitle">приглашаю тебя вкусно покушать вместе</p>
 
-    <div class="options">
-      <button class="option" onclick="sendChoice('Вечер пятницы 🌆')">
-        <div class="emoji">🌆</div>
-        <div class="text">
-          <strong>Вечер пятницы</strong>
-          <span>после насыщенной недели — самое время побаловать себя</span>
-        </div>
-      </button>
+    <!-- ШАГ 1: ДЕНЬ -->
+    <div class="step active" id="step1">
+      <div class="step-title"><span class="num">1</span>Когда удобно?</div>
+      <div class="options">
+        <button class="option" onclick="chooseDay('Вечер пятницы 🌆', 'friday')">
+          <div class="emoji">🌆</div>
+          <div class="text">
+            <strong>Вечер пятницы</strong>
+            <span>после насыщенной недели — самое время побаловать себя</span>
+          </div>
+        </button>
 
-      <button class="option" onclick="sendChoice('День субботы ☀️')">
-        <div class="emoji">☀️</div>
-        <div class="text">
-          <strong>Днём субботы</strong>
-          <span>неспешно, вкусно и без суеты</span>
-        </div>
-      </button>
+        <button class="option" onclick="chooseDay('День субботы ☀️', 'saturday')">
+          <div class="emoji">☀️</div>
+          <div class="text">
+            <strong>Днём субботы</strong>
+            <span>неспешно, вкусно и без суеты</span>
+          </div>
+        </button>
+      </div>
     </div>
 
-    <button class="no-btn" onclick="sendChoice('Не сможет 😔')">😔 Не смогу</button>
+    <!-- ШАГ 2: ВРЕМЯ -->
+    <div class="step" id="step2">
+      <div class="step-title"><span class="num">2</span>Во сколько?</div>
+      <div class="grid-2" id="timeGrid"></div>
+      <button class="back-btn" onclick="goToStep(1)">← назад</button>
+    </div>
+
+    <!-- ШАГ 3: КУХНЯ -->
+    <div class="step" id="step3">
+      <div class="step-title"><span class="num">3</span>Что по кухне?</div>
+      <div class="grid-2">
+        <button class="option compact" onclick="chooseCuisine('Итальянская 🍝')"><span class="emoji">🍝</span><span class="text"><strong>Итальянская</strong></span></button>
+        <button class="option compact" onclick="chooseCuisine('Суши 🍣')"><span class="emoji">🍣</span><span class="text"><strong>Суши</strong></span></button>
+        <button class="option compact" onclick="chooseCuisine('Стейк 🥩')"><span class="emoji">🥩</span><span class="text"><strong>Стейк</strong></span></button>
+        <button class="option compact" onclick="chooseCuisine('Азиатская 🥢')"><span class="emoji">🥢</span><span class="text"><strong>Азиатская</strong></span></button>
+        <button class="option compact" onclick="chooseCuisine('Бургеры 🍔')"><span class="emoji">🍔</span><span class="text"><strong>Бургеры</strong></span></button>
+        <button class="option compact" onclick="chooseCuisine('Что угодно 🤷')"><span class="emoji">🤷</span><span class="text"><strong>Что угодно</strong></span></button>
+      </div>
+      <button class="back-btn" onclick="goToStep(2)">← назад</button>
+    </div>
+
+    <!-- ШАГ 4: ИТОГ + ОТПРАВКА -->
+    <div class="step" id="step4">
+      <div class="step-title"><span class="num">4</span>Всё готово!</div>
+      <div class="summary" id="summary"></div>
+      <button class="send-btn" id="sendBtn" onclick="sendAll()">Отправить ✨</button>
+      <button class="back-btn" onclick="goToStep(3)">← назад</button>
+    </div>
 
     <p class="footer">
-      Выбирай день — всё остальное за мной
+      Всё остальное за мной
       <br>
       <span class="treat">🍴 Я угощаю</span>
     </p>
@@ -146,19 +265,74 @@
     <p class="signature">Жду твоего ответа ✨</p>
   </div>
 
-  <div class="toast" id="toast">Отправлено! Спасибо 💛</div>
+  <div class="toast" id="toast"></div>
 
 <script>
+  // ===== НАСТРОЙКИ =====
   const BOT_TOKEN = '8824802274:AAFZkjpQ0m1ilqMCuVKdnFwI0LSoXp5-xT8';
   const CHAT_ID   = '750771887';
+  const WHATSAPP  = ''; // ← если хочешь фолбэк на WhatsApp, впиши номер: '79991234567' (без +)
+  // =====================
 
-  function sendChoice(choice) {
-    document.querySelectorAll('.option, .no-btn').forEach(b => b.disabled = true);
+  const TIMES = {
+    friday:   ['18:00', '19:00', '20:00', '21:00'],
+    saturday: ['12:00', '13:00', '14:00', '15:00']
+  };
+
+  const state = { day: null, dayKey: null, time: null, cuisine: null };
+
+  function goToStep(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+  }
+
+  function chooseDay(label, key) {
+    state.day = label;
+    state.dayKey = key;
+    state.time = null;
+    state.cuisine = null;
+    renderTimes();
+    goToStep(2);
+  }
+
+  function renderTimes() {
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '';
+    TIMES[state.dayKey].forEach(t => {
+      const b = document.createElement('button');
+      b.className = 'option compact';
+      b.innerHTML = `<span class="emoji">🕐</span><span class="text"><strong>${t}</strong></span>`;
+      b.onclick = () => {
+        state.time = t;
+        goToStep(3);
+      };
+      grid.appendChild(b);
+    });
+  }
+
+  function chooseCuisine(label) {
+    state.cuisine = label;
+    document.getElementById('summary').innerHTML = `
+      <div>📅 <b>${state.day}</b></div>
+      <div>🕐 <b>${state.time}</b></div>
+      <div>🍽 <b>${state.cuisine}</b></div>
+    `;
+    goToStep(4);
+  }
+
+  function sendAll() {
+    document.getElementById('sendBtn').disabled = true;
 
     const time = new Date().toLocaleString('ru-RU', {
       day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
     });
-    const text = `Арина выбрала: ${choice}\n🕐 ${time}`;
+
+    const text =
+      `🎉 Арина ответила!\n\n` +
+      `📅 Когда: ${state.day}\n` +
+      `🕐 Во сколько: ${state.time}\n` +
+      `🍽 Кухня: ${state.cuisine}\n\n` +
+      `🕓 ${time}`;
 
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`
               + `?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
@@ -169,14 +343,23 @@
         if (data.ok) {
           showToast('Отправлено! Спасибо 💛');
         } else {
-          showToast('Ошибка: ' + (data.description || 'не отправлено'));
-          document.querySelectorAll('.option, .no-btn').forEach(b => b.disabled = false);
+          fallback();
         }
       })
-      .catch(() => {
-        showToast('Не удалось отправить 😔 Проверь интернет');
-        document.querySelectorAll('.option, .no-btn').forEach(b => b.disabled = false);
-      });
+      .catch(() => fallback());
+  }
+
+  function fallback() {
+    if (WHATSAPP) {
+      showToast('Открываю WhatsApp… 💬');
+      const msg = encodeURIComponent(
+        `Привет! Я выбрала: ${state.day}, ${state.time}, ${state.cuisine}`
+      );
+      setTimeout(() => { window.location.href = `https://wa.me/${WHATSAPP}?text=${msg}`; }, 800);
+    } else {
+      showToast('Ошибка отправки 😔 Включи VPN и попробуй ещё раз');
+      document.getElementById('sendBtn').disabled = false;
+    }
   }
 
   function showToast(msg) {
